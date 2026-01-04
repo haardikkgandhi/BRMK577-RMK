@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamFit BMRK557</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .checkbox-wrapper input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkbox-wrapper .checkmark {
+            position: relative;
+            display: inline-block;
+            height: 24px;
+            width: 24px;
+            background-color: #334155;
+            border: 2px solid #475569;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .checkbox-wrapper input:checked~.checkmark {
+            background-color: #22c55e;
+            border-color: #22c55e;
+        }
+
+        .checkbox-wrapper .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 8px;
+            top: 4px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-wrapper input:checked~.checkmark:after {
+            display: block;
+        }
+
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#f3f4f6] dark:bg-[#0f172a] text-slate-800 dark:text-slate-100 font-sans min-h-screen pb-20 selection:bg-blue-100 selection:text-blue-900 transition-colors duration-300">
+
+    <!-- Main Content -->
+    <main class="py-10 max-w-[1400px] mx-auto px-6 lg:px-10">
+
+        <!-- Header & Legend Section -->
+        <div class="flex flex-col xl:flex-row gap-6 justify-between items-stretch mb-10">
+            <!-- New Legend Card (Expanded, Left Side) -->
+            <div
+                class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 flex-1 w-full relative overflow-hidden group">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-slate-50 dark:bg-slate-800/50 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110 duration-700">
+                </div>
+
+                <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 content-center h-full">
+                    <!-- Priority -->
+                    <div>
+                        <h4
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 dark:border-slate-700 pb-2">
+                            Legend</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full shadow-sm"
+                                    style="background-color: rgb(221, 82, 76)"></span>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">4x <span
+                                        class="text-slate-400 font-semibold">- Very High Priority</span></span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full shadow-sm"
+                                    style="background-color: rgb(232, 123, 53)"></span>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">3x <span
+                                        class="text-slate-400 font-semibold">- High Priority</span></span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full shadow-sm"
+                                    style="background-color: rgb(225, 181, 62)"></span>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">2x <span
+                                        class="text-slate-400 font-semibold">- Medium Priority</span></span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full shadow-sm"
+                                    style="background-color: rgb(94, 194, 105)"></span>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">1x <span
+                                        class="text-slate-400 font-semibold">- Asked Once</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Papers -->
+                    <div>
+                        <h4
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 dark:border-slate-700 pb-2">
+                            Papers</h4>
+                        <ul class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                            <li><strong class="text-slate-800 dark:text-slate-200">1A</strong> = Dec 24-Jan 25</li>
+                            <li><strong class="text-slate-800 dark:text-slate-200">1B</strong> = June-July 24</li>
+                            <li><strong class="text-slate-800 dark:text-slate-200">2A</strong> = Model Paper 2022 Set-1
+                            </li>
+                            <li><strong class="text-slate-800 dark:text-slate-200">2B</strong> = Model Paper 2022 Set-2
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Answer Sources -->
+                    <div>
+                        <h4
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 dark:border-slate-700 pb-2">
+                            Answer Sources</h4>
+                        <ul class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                            <li><strong class="text-slate-800 dark:text-slate-200">1A</strong> = Dec 24-Jan 25 - solved
+                                paper</li>
+                            <li><strong class="text-slate-800 dark:text-slate-200">2B</strong> = Model Paper 2022 Set-2
+                                - solved paper</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Title & Toggle (Right Side) -->
+            <div class="flex flex-col md:flex-row xl:flex-col items-end justify-center gap-4 shrink-0 px-2">
+                <div class="text-right">
+                    <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none">BMRK557
+                        <span class="text-slate-400 font-medium">-analysis</span>
+                    </h1>
+                    <span
+                        class="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase opacity-80">Dashboard</span>
+                </div>
+
+                <button onclick="toggleDarkMode()"
+                    class="w-12 h-12 rounded-2xl bg-white dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 flex items-center justify-center hover:bg-white/80 transition-all shadow-sm border border-slate-200 dark:border-slate-800 hover:scale-105 active:scale-95 duration-200">
+                    <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
+                </button>
+
+                <!-- COMPACT BADGE SHOWCASE (Below Dark Mode) -->
+                <div id="badge-showcase-container" class="w-full">
+                    <!-- Populated dynamically by renderBadgeShowcase() -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Stats Cards (Finova Row 1) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <!-- Total Topics -->
+            <div
+                class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 shadow-[0_2px_20px_-5px_rgba(6,81,237,0.08)] dark:shadow-none hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 dark:border-slate-800 group">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <div class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">Total Topics</div>
+                        <div class="text-3xl font-black text-slate-900 dark:text-white tracking-tight"
+                            id="hero-total-topics">0</div>
+                    </div>
+                    <div
+                        class="w-12 h-12 bg-violet-50 dark:bg-violet-900/20 text-violet-600 dark:text-violet-400 rounded-2xl flex items-center justify-center group-hover:bg-violet-600 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modules -->
+            <div
+                class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 shadow-[0_2px_20px_-5px_rgba(6,81,237,0.08)] dark:shadow-none hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 dark:border-slate-800 group">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <div class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">Modules</div>
+                        <div class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">5</div>
+                    </div>
+                    <div
+                        class="w-12 h-12 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="box" class="w-6 h-6"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span
+                        class="text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/30 border border-amber-100 dark:border-amber-800/50 px-2 py-1 rounded-lg">
+                        Active
+                    </span>
+                    <span class="text-xs font-semibold text-slate-400">All modules loaded</span>
+                </div>
+            </div>
+
+            <!-- Papers -->
+            <div
+                class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 shadow-[0_2px_20px_-5px_rgba(6,81,237,0.08)] dark:shadow-none hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 dark:border-slate-800 group">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <div class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">Papers Source</div>
+                        <div class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">4</div>
+                    </div>
+                    <div
+                        class="w-12 h-12 bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 rounded-2xl flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="file-text" class="w-6 h-6"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span
+                        class="text-xs font-bold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/30 border border-sky-100 dark:border-sky-800/50 px-2 py-1 rounded-lg">
+                        Analyzed
+                    </span>
+                    <span class="text-xs font-semibold text-slate-400">PYQ & Model Papers</span>
+                </div>
+            </div>
+
+            <!-- Completion Donut -->
+            <div
+                class="bg-slate-900 dark:bg-blue-600 rounded-3xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                <!-- Background Pattern -->
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none">
+                </div>
+
+                <div class="flex justify-between items-center relative z-10 h-full">
+                    <div>
+                        <div class="text-sm font-bold text-slate-400 dark:text-blue-100 mb-1">Total Progress</div>
+                        <div class="text-3xl font-black text-white mb-3" id="hero-progress-text">0%</div>
+                        <button onclick="toggleReport()"
+                            class="text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-2 rounded-lg transition-colors flex items-center gap-2">
+                            View Report <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                    <!-- Mini Donut -->
+                    <div class="relative w-20 h-20">
+                        <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                            <path class="text-slate-700 dark:text-blue-800"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+                            <path id="hero-donut-circle"
+                                class="text-blue-500 dark:text-white transition-all duration-1000 ease-out"
+                                stroke-dasharray="0, 100"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="activity" class="w-5 h-5 text-blue-500 dark:text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="flex items-center gap-4 mb-8 border-b border-slate-200 dark:border-slate-800">
+            <button onclick="switchTab('topic')" id="tab-topic"
+                class="pb-3 px-2 text-sm font-bold border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 transition-colors">
+                Topic Wise
+            </button>
+            <button onclick="switchTab('paper')" id="tab-paper"
+                class="pb-3 px-2 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">
+                Paper Wise
+            </button>
+        </div>
+
+        <!-- Modules List (Topic View) -->
+        <div id="modules-view">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                Details Evaluation <span
+                    class="text-sm font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg ml-2">5
+                    Modules</span>
+            </h3>
+            <div id="modules-container" class="space-y-8 pb-20"></div>
+        </div>
+
+        <!-- Papers List (Paper View) - Hidden by default -->
+        <div id="papers-view" class="hidden">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                Paper Evaluation <span
+                    class="text-sm font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg ml-2">4
+                    Papers</span>
+            </h3>
+            <div id="papers-container" class="pb-20 space-y-8"></div>
+        </div>
+
+    </main>
+
+    <!-- Slide-In Panel -->
+    <div id="report-backdrop" onclick="toggleReport()"
+        class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden transition-opacity opacity-0"></div>
+    <div id="report-panel"
+        class="fixed top-0 right-0 h-full w-full md:w-[60%] bg-white dark:bg-[#0f172a] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col border-l border-slate-100 dark:border-slate-800">
+        <div
+            class="p-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-[#1e293b]">
+            <div>
+                <h2 class="text-xl font-black text-slate-900 dark:text-white">Analytics Report</h2>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">Deep Dive Analysis</p>
+            </div>
+            <button onclick="toggleReport()"
+                class="p-2 hover:bg-white dark:hover:bg-slate-800 rounded-full text-slate-400 hover:text-red-500 transition-colors shadow-sm dark:shadow-none border border-transparent hover:border-slate-100 dark:hover:border-slate-700"><i
+                    data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div id="report-content" class="p-6 space-y-6 overflow-y-auto flex-1 bg-white dark:bg-[#0f172a]">
+            <!-- Dynamic Chart Content Replaces This -->
+        </div>
+    </div>
+
+    <script>
+        // FULL DATA SET
+        const fullModules = [
+            {
+                id: 'm1', title: 'Module 1 - Research Basics',
+                topics: [
+                    {
+                        name: 'Define Research / Engineering Research with objectives and aims', freq: '3x', qs: [
+                            { id: 'm1_1', p: '1A Q.1a', t: 'Identify the meaning of Research and brief out the objective and motivation in engineering research.', m: 10 },
+                            { id: 'm1_2', p: '1B Q.2a', t: 'Define Engineering research and list its aims and objectives.', m: 10 },
+                            { id: 'm1_3', p: '2A Q.01b', t: 'Define Engineering Research and list its aims and objectives.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Research cycle / Research flow diagram', freq: '2x', qs: [
+                            { id: 'm1_4', p: '1A Q.1b', t: 'Explain brief about research cycle and verify with the research flow diagram.', m: 10 },
+                            { id: 'm1_5', p: '1B Q.1a', t: 'Define the term research and explain the research flow cycle with a relevant diagram.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Types of Engineering Research', freq: '3x', qs: [
+                            { id: 'm1_6', p: '1A Q.2a', t: 'Identify the types of engineering research and briefly explain them.', m: 10 },
+                            { id: 'm1_7', p: '2A Q.02b', t: 'Enlist and Explain different types of engineering research.', m: 10 },
+                            { id: 'm1_8', p: '2B Q.02b', t: 'Discuss the different types of engineering research. Clearly point out the Differences between all of them with examples.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Research Misconduct', freq: '4x', qs: [
+                            { id: 'm1_9', p: '1A Q.2b', t: 'Explain about the different types of research misconduct.', m: 10 },
+                            { id: 'm1_10', p: '1B Q.2b', t: 'Write a note on the following research misconduct: i) Plagiarism ii) Other types of research bias.', m: 10 },
+                            { id: 'm1_11', p: '2A Q.01a', t: 'List the different types of research misconduct and provide a brief explanation for each one.', m: 10 },
+                            { id: 'm1_12', p: '2B Q.02a', t: 'Explain Fabrication, Falsification and Plagiarism related to engineering Research.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Ethical issues related to Authorship', freq: '3x', qs: [
+                            { id: 'm1_13', p: '1B Q.1b', t: 'What are the key ethical issues related to authorship? Explain any one.', m: 10 },
+                            { id: 'm1_14', p: '2A Q.02a', t: 'What ethical considerations and responsibilities should be taken into account when determining authorship in engineering research?', m: 10 },
+                            { id: 'm1_15', p: '2B Q.01a', t: 'What are the key ethical issues related to authorship? Explain each one.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Categories of developing and accessing Knowledge', freq: '1x', qs: [
+                            { id: 'm1_16', p: '2B Q.01b', t: 'What are the three broad categories of developing and accessing Knowledge in research? Explain with a diagram.', m: 10 }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'm2', title: 'Module 2 - Literature Review',
+                topics: [
+                    {
+                        name: 'Literature Review - Importance / Goals / Benefits', freq: '2x', qs: [
+                            { id: 'm2_1', p: '1A Q.3a', t: 'Explain about the importance of literature review and Mention the various benefits of bibliographic databases.', m: 10 },
+                            { id: 'm2_2', p: '1B Q.3a', t: 'What are the primary goals of conducting a literature review in academic research?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Critical and Creative Reading - Steps/Process', freq: '3x', qs: [
+                            { id: 'm2_3', p: '1A Q.3b', t: 'Explain about technical reading.', m: 10 },
+                            { id: 'm2_4', p: '1B Q.3b', t: 'Explain various steps involved in critical and creative reading.', m: 10 },
+                            { id: 'm2_5', p: '2B Q.03a', t: 'Explain the various steps involved in the critical and creative reading process.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'New and Existing Knowledge contribution', freq: '2x', qs: [
+                            { id: 'm2_6', p: '1B Q.4a', t: 'How does new and existing knowledge can contribute to the research process? Explain relevant points.', m: 10 },
+                            { id: 'm2_7', p: '2A Q.03a', t: 'How does the new and existing knowledge can contribute to the research process? Explain with relevant points.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Knowledge Flow through Citation', freq: '2x', qs: [
+                            { id: 'm2_8', p: '1B Q.4b', t: 'Explain Knowledge flow through citation.', m: 10 },
+                            { id: 'm2_9', p: '2A Q.04a', t: 'Explain how knowledge flows through a citation network using a flow diagram.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Impact of Title and Keywords on Citations', freq: '2x', qs: [
+                            { id: 'm2_10', p: '1A Q.4b', t: 'Enumerate the impact of title and keywords on citation with example.', m: 10 },
+                            { id: 'm2_11', p: '2A Q.04b', t: 'What is impact of Title and Keywords on citations? Explain Citation based Knowledge flow.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Search Engines / Bibliographic Databases', freq: '2x', qs: [
+                            { id: 'm2_12', p: '2A Q.03b', t: 'How can researchers effectively use search engines to find relevant literatures in their field?', m: 10 },
+                            { id: 'm2_13', p: '2B Q.03b', t: 'What are the key features of the bibliographic database of the Web of Science (WoS), and how is it commonly used in research?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Impact of Technical Reaction', freq: '1x', qs: [
+                            { id: 'm2_14', p: '1A Q.4a', t: 'Identify the impact of technical reaction and brief about it.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Citation Fails / Citation Styles', freq: '2x', qs: [
+                            { id: 'm2_15', p: '2B Q.04a', t: 'What types of citations fail to achieve their goal and do not benefit the reader? Explain.', m: 10 },
+                            { id: 'm2_16', p: '2B Q.04b', t: 'Explain the most common styles for citation used by engineers during research, and provide an example.', m: 10 }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'm3', title: 'Module 3 - IPR & Patents',
+                topics: [
+                    {
+                        name: 'IPR - Definition, Types, History', freq: '3x', qs: [
+                            { id: 'm3_1', p: '1A Q.5a', t: 'Define Intellectual properties and explain about its types.', m: 10 },
+                            { id: 'm3_2', p: '2A Q.05a', t: 'Describe Intellectual Property Rights and List its types?', m: 10 },
+                            { id: 'm3_3', p: '2B Q.05b', t: 'Discuss the history of Intellectual Property Rights in India.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Patent - Definition, Conditions, Eligibility', freq: '3x', qs: [
+                            { id: 'm3_4', p: '1A Q.5b', t: 'Explain about the key aspect of patent law.', m: 10 },
+                            { id: 'm3_5', p: '1B Q.5a', t: 'What inventions are eligible for patenting and which matters are considered non-patentable?', m: 10 },
+                            { id: 'm3_6', p: '1B Q.6a', t: 'Define the term patent and what conditions must be met for obtaining patent protection.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Patent Registration Process', freq: '4x', qs: [
+                            { id: 'm3_7', p: '1A Q.6b', t: 'Brief about the patent procedure in India.', m: 10 },
+                            { id: 'm3_8', p: '1B Q.6b', t: 'Explain the following major steps involved in the process of patent registration: i) Prior Art search ii) Choice of application to be filed iii) Pre-grant opposition.', m: 10 },
+                            { id: 'm3_9', p: '2A Q.05b', t: 'Explain the following major steps involved in the process of Patent Registration: i) Prior Art Search ii) Choice of application to be filed iii) Pre-grant opposition.', m: 10 },
+                            { id: 'm3_10', p: '2A Q.06b', t: 'Explain step by step process of obtaining the patent from the initial idea to the grant of patent.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Classes of Copyrights / Design Reg', freq: '2x', qs: [
+                            { id: 'm3_11', p: '1B Q.5b', t: 'Explain classes of copyrights.', m: 10 },
+                            { id: 'm3_12', p: '2B Q.05a', t: 'Discuss the Design registration procedure of patent by using a flowchart.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Assessment of Novelty', freq: '1x', qs: [
+                            { id: 'm3_13', p: '1A Q.6a', t: 'Explain about the assessment of novelty.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Indian Residents Patent Filing', freq: '1x', qs: [
+                            { id: 'm3_14', p: '2A Q.06a', t: 'In which circumstances Indian residents are not required to file a patent application first in India to get patent protection in another country? Explain.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Commercialization of Patent', freq: '1x', qs: [
+                            { id: 'm3_15', p: '2B Q.06a', t: 'What strategies are involved in the commercialization of a patent?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Utility Models vs Patents', freq: '1x', qs: [
+                            { id: 'm3_16', p: '2B Q.06b', t: 'What are utility models, and how do they differ from patents?', m: 10 }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'm4', title: 'Module 4 - Trademark & Copyright',
+                topics: [
+                    {
+                        name: 'Copyright Registration Process', freq: '3x', qs: [
+                            { id: 'm4_1', p: '1B Q.7a', t: 'Using flow chart, explain the important steps involved in the process of copyrights registration.', m: 10 },
+                            { id: 'm4_2', p: '2A Q.08a', t: 'Using a flowchart, explain the steps involved in the process of Copyright Registration.', m: 10 },
+                            { id: 'm4_3', p: '2B Q.07a', t: 'Explain the process of copyright registration? What are the benefits for the copyright holders?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Trademark Registration', freq: '3x', qs: [
+                            { id: 'm4_4', p: '1B Q.7b', t: 'Using a flow chart, explain the steps involved in the process of trademarks registration.', m: 10 },
+                            { id: 'm4_5', p: '2A Q.07a', t: 'Using a flowchart, explain the steps involved in the process of Trademarks Registration.', m: 10 },
+                            { id: 'm4_6', p: '2B Q.07b', t: 'Explain by using flowchart, steps involved in trademark registration?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Copyright - Definition, Classes, Rights', freq: '3x', qs: [
+                            { id: 'm4_7', p: '1A Q.7b', t: 'Explain about the basic concepts of under lying copyright law.', m: 10 },
+                            { id: 'm4_8', p: '2A Q.07b', t: 'Define the term Copyright and write its classes. What are the two exclusive rights owned by the copyright owner? Explain briefly.', m: 10 },
+                            { id: 'm4_9', p: '2B Q.08a', t: 'Explain the criteria that an original work must meet to quality for copy right protection?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Copyright Board and Society', freq: '2x', qs: [
+                            { id: 'm4_10', p: '1B Q.8a', t: 'What are the roles and functions of the copyright board and copyright society in administering copyright law and regulations?', m: 10 },
+                            { id: 'm4_11', p: '2B Q.08b', t: 'What are the roles and functions of the copyright board and the copyright Society in administering copyright laws and regulations?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Justification for Copyright Law', freq: '1x', qs: [
+                            { id: 'm4_12', p: '1A Q.7a', t: 'Mention and brief about the justification for copyright law.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Sound Recordings', freq: '1x', qs: [
+                            { id: 'm4_13', p: '1A Q.8a', t: 'Brief about the various representations of sound recordings.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'TRIPS Agreement', freq: '1x', qs: [
+                            { id: 'm4_14', p: '1A Q.8b', t: 'Explain about TRIPS agreement in detail.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Categories of Trademarks', freq: '1x', qs: [
+                            { id: 'm4_15', p: '1B Q.8b', t: 'What are the different categories trademarks recognized under Indian law and tabulate the famous trademark types with examples.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Copyright Infringement', freq: '1x', qs: [
+                            { id: 'm4_16', p: '2A Q.08b', t: 'Copyright Infringements, Copyright Infringement is a Criminal Offence. Copyright Infringement is a Cognizable Offence Explain.', m: 10 }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'm5', title: 'Module 5 - GI & Design',
+                topics: [
+                    {
+                        name: 'GI Registration Process', freq: '3x', qs: [
+                            { id: 'm5_1', p: '1B Q.10a', t: 'Using a flowchart, explain the process of GI registration.', m: 10 },
+                            { id: 'm5_2', p: '2A Q.10b', t: 'Using a flow chart, explain the process of GI registration.', m: 10 },
+                            { id: 'm5_3', p: '2B Q.10b', t: 'Using a flowchart, Explain the process of GI registration.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Geographical Indications - Definition, Rights', freq: '3x', qs: [
+                            { id: 'm5_4', p: '1B Q.9b', t: 'Define Geographical Indications (GI) with an example. What are the rights granted to GI holders.', m: 10 },
+                            { id: 'm5_5', p: '2A Q.09b', t: 'Define Geographical Indications (GI) with an example. What are the rights granted to GI holders?', m: 10 },
+                            { id: 'm5_6', p: '2B Q.10a', t: 'How would you describe the overall ecosystem and significance of geographical indications in India?', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Industrial Design / Registration / Trends', freq: '4x', qs: [
+                            { id: 'm5_7', p: '1B Q.9a', t: 'Discuss the design registration procedure using a flow chart.', m: 10 },
+                            { id: 'm5_8', p: '1B Q.10b', t: 'Explain the classification of Industrial Designs and design registration trends in India.', m: 10 },
+                            { id: 'm5_9', p: '2A Q.09a', t: 'Explain the process of industrial design registration.', m: 10 },
+                            { id: 'm5_10', p: '2B Q.09a', t: 'Explain the classification of Industrial Designs and design registration trends in India.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Justification of Protection Designs', freq: '1x', qs: [
+                            { id: 'm5_11', p: '1A Q.9a', t: 'Explain about the justification of protection designs.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Excluded Subject Matter in Design', freq: '1x', qs: [
+                            { id: 'm5_12', p: '1A Q.9b', t: 'Brief about the excluded subjected matter in the context of design protection.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Rights of Design Owner', freq: '1x', qs: [
+                            { id: 'm5_13', p: '1A Q.10a', t: 'What are the rights of the owner of designs? Explain.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Assignment of Design Rights', freq: '1x', qs: [
+                            { id: 'm5_14', p: '1A Q.10b', t: 'Brief about the Assignment of Design Rights.', m: 10 }
+                        ]
+                    },
+                    {
+                        name: 'Case Studies: Patents & Design', freq: '2x', qs: [
+                            { id: 'm5_15', p: '2A Q.10a', t: 'Explain Case study of Curcuma (Turmeric) Patent, Case study of Neem Patent.', m: 10 },
+                            { id: 'm5_16', p: '2B Q.09b', t: 'Explain the famous case law between Apple Inc Vs Samsung Electronics Co. related with Industrial Design Rights.', m: 10 }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // LATEST LOGIC (Dark Mode + Reports + Cleanup)
+        const savedChecks = JSON.parse(localStorage.getItem('bmrk557_topics') || '{}');
+
+        // Init Dark Mode
+        if (localStorage.getItem('finova_dark') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('finova_dark', isDark);
+            // renderLegend(); // Deprecated
+            render();       // Re-render to ensure all dynamic classes match
+        }
+
+        const freqColors = {
+            '4x': { r: 221, g: 82, b: 76 },   // Reddish
+            '3x': { r: 232, g: 123, b: 53 },  // Orangeish
+            '2x': { r: 225, g: 181, b: 62 },  // Yellow/Gold
+            '1x': { r: 94, g: 194, b: 105 }   // Greenish
+        };
+
+        function getVariantStyle(freq) {
+            const color = freqColors[freq] || freqColors['1x'];
+            // Dark Mode Friendly variant style
+            return `background-color: rgba(${color.r}, ${color.g}, ${color.b}, 0.08); border: 1px solid rgba(${color.r}, ${color.g}, ${color.b}, 0.2); color: rgb(${color.r}, ${color.g}, ${color.b});`;
+        }
+
+        function getBadgeStyle(freq) {
+            const color = freqColors[freq] || freqColors['1x'];
+            return `background-color: rgba(${color.r}, ${color.g}, ${color.b}, 0.15); color: rgb(${color.r}, ${color.g}, ${color.b}); border-color: rgba(${color.r}, ${color.g}, ${color.b}, 0.3);`;
+        }
+
+        function renderLegend() {
+            // Static in HTML now
+        }
+
+        // Helper to generate stable IDs
+        function getTopicId(modId, topicName) {
+            return `topic_${modId}_${topicName.replace(/[^a-zA-Z0-9]/g, '_')}`;
+        }
+
+        // ==================== ACHIEVEMENT BADGE SYSTEM ====================
+
+        // Badge Definitions with Progressive Designs
+        const badges = [
+            // 🥉 MODULE 1
+            {
+                id: 'module1',
+                tier: 'bronze',
+                icon: '🥉',
+                title: 'Module Master',
+                getMessage: () => "ONE COMPLETE MODULE DONE! Yaaa! You've completed one entire module! Here's a badge for you! 🏅 Keep this momentum going!",
+                gradient: 'from-amber-400 to-orange-500',
+                check: () => {
+                    let completedModules = 0;
+                    fullModules.forEach(mod => {
+                        const allChecked = mod.topics.every(t => savedChecks[getTopicId(mod.id, t.name)]);
+                        if (allChecked) completedModules++;
+                    });
+                    return completedModules >= 1;
+                }
+            },
+
+            // 🥈 MODULE 3 (60 Marks)
+            {
+                id: 'module3',
+                tier: 'silver',
+                icon: '🥈',
+                title: '60 Marks',
+                getMessage: () => "60 MARKS ACHIEVED! Man, you've achieved 60 marks! Three modules down! Let's gooooo! Now let's try for 80+!",
+                gradient: 'from-gray-400 to-gray-600',
+                check: () => {
+                    let completedModules = 0;
+                    fullModules.forEach(mod => {
+                        const allChecked = mod.topics.every(t => savedChecks[getTopicId(mod.id, t.name)]);
+                        if (allChecked) completedModules++;
+                    });
+                    return completedModules >= 3;
+                }
+            },
+
+            // 🎓 PASS MASTER (36+)
+            {
+                id: 'pass36',
+                tier: 'silver',
+                icon: '🎓',
+                title: 'Pass Master',
+                getMessage: () => "YOU'VE PASSED ALL 4 PAPERS! You've successfully crossed the passing threshold with 36+ marks in each paper (1a, 1b, 2a, 2b). You're doing well! But there's so much more to achieve. Let's keep pushing forward!",
+                gradient: 'from-blue-400 to-cyan-500',
+                check: () => {
+                    const scores = calculatePaperScores(getPapersData());
+                    return Object.values(scores).length === 4 && Object.values(scores).every(s => s.total >= 36);
+                }
+            },
+
+            // ⭐ THRESHOLD CLEARED (65+)
+            {
+                id: 'score65',
+                tier: 'gold',
+                icon: '⭐',
+                title: 'Threshold',
+                getMessage: () => "MINIMUM 65 MARKS SECURED! You've cleared the safe zone! With at least 65 marks in hand, you're comfortably above the passing line. Hmm... maybe I'm proud of you!",
+                gradient: 'from-yellow-400 to-orange-400',
+                check: () => {
+                    const scores = calculatePaperScores(getPapersData());
+                    return Object.values(scores).length === 4 && Object.values(scores).every(s => s.total >= 65);
+                }
+            },
+
+            // 🌟 HIGH ACHIEVER (70+)
+            {
+                id: 'score70',
+                tier: 'gold',
+                icon: '🌟',
+                title: 'High Achiever',
+                getMessage: () => "MINIMUM 70 MARKS ACHIEVED! You've done it! With 70+ marks secured, you're performing solidly across all papers. Proud of you!",
+                gradient: 'from-yellow-400 to-amber-500',
+                check: () => {
+                    const scores = calculatePaperScores(getPapersData());
+                    return Object.values(scores).length === 4 && Object.values(scores).every(s => s.total >= 70);
+                }
+            },
+
+            // 🔥 EXAM BEAST (80+)
+            {
+                id: 'score80',
+                tier: 'diamond',
+                icon: '🔥',
+                title: 'Exam Beast',
+                getMessage: () => "MINIMUM 80 MARKS ACHIEVED! Shessh! I am SO proud of you! I cannot be proud enough! You're doing GREAT! This is excellence level performance!",
+                gradient: 'from-orange-400 to-red-500',
+                check: () => {
+                    const scores = calculatePaperScores(getPapersData());
+                    return Object.values(scores).length === 4 && Object.values(scores).every(s => s.total >= 80);
+                }
+            },
+
+            // 💎 GOD MODE (100+)
+            {
+                id: 'score100',
+                tier: 'diamond',
+                icon: '💎',
+                title: 'God Mode',
+                getMessage: () => "MINIMUM 100 MARKS IN EACH PAPER! WTFF! 🤣 This is INSANE! You're absolutely crushing it! LEGENDARY PERFORMANCE!",
+                gradient: 'from-cyan-400 via-purple-500 to-pink-500',
+                check: () => {
+                    const scores = calculatePaperScores(getPapersData());
+                    return Object.values(scores).length === 4 && Object.values(scores).every(s => s.total >= 100);
+                }
+            }
+        ];
+
+        // Load earned badges from localStorage
+        let earnedBadges = JSON.parse(localStorage.getItem('bmrk557_badges') || '[]');
+
+        // Check and Award/Revoke Badges
+        function checkBadges() {
+            let changed = false;
+
+            badges.forEach(badge => {
+                const isEarned = earnedBadges.includes(badge.id);
+                const requirementsMet = badge.check();
+
+                if (requirementsMet && !isEarned) {
+                    // Award the badge!
+                    earnedBadges.push(badge.id);
+                    changed = true;
+                    // Show celebration modal with delay for suspense
+                    setTimeout(() => showBadgeModal(badge), 500);
+                } else if (!requirementsMet && isEarned) {
+                    // Revoke the badge (user unchecked items)
+                    earnedBadges = earnedBadges.filter(id => id !== badge.id);
+                    changed = true;
+                }
+            });
+
+            if (changed) {
+                localStorage.setItem('bmrk557_badges', JSON.stringify(earnedBadges));
+                renderBadgeShowcase();
+            }
+        }
+
+        // Confetti Animation
+        let confettiAnimationId = null;
+        function createConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+
+            // Create particles
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: -20,
+                    size: Math.random() * 6 + 4,
+                    speedY: Math.random() * 3 + 2,
+                    speedX: Math.random() * 2 - 1,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach((p, index) => {
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    p.rotation += 2;
+
+                    if (p.y > canvas.height) {
+                        particles[index] = {
+                            x: Math.random() * canvas.width,
+                            y: -20,
+                            size: Math.random() * 6 + 4,
+                            speedY: Math.random() * 3 + 2,
+                            speedX: Math.random() * 2 - 1,
+                            color: colors[Math.floor(Math.random() * colors.length)],
+                            rotation: Math.random() * 360
+                        };
+                    }
+                });
+
+                confettiAnimationId = requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Show Badge Modal with Animation
+        function showBadgeModal(badge) {
+            const modal = document.getElementById('badge-modal');
+            const content = document.getElementById('badge-content');
+            const iconWrapper = document.getElementById('badge-icon-wrapper');
+            const iconBg = document.getElementById('badge-icon-bg');
+            const icon = document.getElementById('badge-icon');
+            const title = document.getElementById('badge-title');
+            const message = document.getElementById('badge-message');
+
+            // Set content (use getMessage for dynamic scores)
+            icon.textContent = badge.icon;
+            title.textContent = badge.title;
+            message.textContent = badge.getMessage ? badge.getMessage() : badge.message;
+
+            // Ensure icon background is visible and centered
+            iconBg.className = `inline-flex items-center justify-center w-24 h-24 rounded-full relative bg-gradient-to-br ${badge.gradient} shadow-lg mx-auto`;
+
+            // Show modal
+            modal.classList.remove('hidden');
+
+            // Start confetti
+            createConfetti();
+
+            // ANIME.JS 3D ANIMATIONS
+            content.style.transform = 'scale(0) rotateY(180deg)';
+            iconWrapper.style.transform = 'scale(0) rotate(-180deg)';
+
+            // Main content - 3D card flip
+            anime({
+                targets: content,
+                scale: [0, 1],
+                rotateY: [180, 0],
+                duration: 800,
+                delay: 200,
+                easing: 'easeOutElastic(1, .6)',
+            });
+
+            // Badge icon - explosive reveal
+            anime({
+                targets: iconWrapper,
+                scale: [0, 1.2, 1],
+                rotate: [-180, 20, 0],
+                duration: 1000,
+                delay: 600,
+                easing: 'easeOutElastic(1, .8)',
+            });
+
+            // Floating animation
+            anime({
+                targets: iconWrapper,
+                translateY: [-8, 8],
+                duration: 2000,
+                delay: 1600,
+                loop: true,
+                direction: 'alternate',
+                easing: 'easeInOutSine'
+            });
+
+            // Update badge showcase
+            setTimeout(() => renderBadgeShowcase(), 1200);
+        }
+
+        // Close Badge Modal
+        function closeBadgeModal() {
+            const modal = document.getElementById('badge-modal');
+            const content = document.getElementById('badge-content');
+            const iconWrapper = document.getElementById('badge-icon-wrapper');
+
+            // Animate exit
+            content.style.transform = 'scale(0)';
+            iconWrapper.style.transform = 'scale(0)';
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+
+                // Stop confetti
+                if (confettiAnimationId) {
+                    cancelAnimationFrame(confettiAnimationId);
+                    confettiAnimationId = null;
+                }
+            }, 300);
+        }
+
+        // Render Badge Showcase - SURPRISE MODE!
+        function renderBadgeShowcase() {
+            const container = document.getElementById('badge-showcase-container');
+            if (!container) return;
+
+            const earnedCount = earnedBadges.length;
+
+            // Check if user has 20+ marks on all papers (teaser threshold)
+            let show20Teaser = false;
+            try {
+                const papersData = getPapersData();
+                const scores = calculatePaperScores(papersData);
+                const allScores = Object.values(scores).map(s => s.total);
+                if (allScores.length === 4 && allScores.every(s => s >= 20) && earnedCount === 0) {
+                    show20Teaser = true;
+                }
+            } catch (e) { }
+
+            // STATE 1: No badges earned yet
+            if (earnedCount === 0) {
+                if (show20Teaser) {
+                    container.innerHTML = `
+                        <div onclick="showTeaserModal()" class="mt-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-3 cursor-pointer hover:scale-105 transition-all duration-300 shadow-md animate-pulse">
+                            <div class="text-white text-center">
+                                <div class="text-xl mb-0.5">🎁</div>
+                                <div class="text-xs font-bold">Surprise! Click me</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = '';
+                }
+                return;
+            }
+
+            // STATE 2: Show earned badges only (Compact Mode)
+            let html = `
+                <div class="mt-2 mb-1">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-[10px] font-black text-slate-900 dark:text-white flex items-center gap-1">
+                            <span class="text-xs">🏆</span>
+                            <span>Achievements</span>
+                        </h4>
+                        <span class="text-[8px] font-bold text-slate-400">${earnedCount}/${badges.length}</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-1">
+            `;
+
+            badges.forEach(badge => {
+                if (earnedBadges.includes(badge.id)) {
+                    html += `
+                        <div onclick="replayBadge('${badge.id}')" 
+                             class="bg-white dark:bg-[#1e293b] rounded-md p-1 border border-slate-200 dark:border-slate-700 hover:scale-105 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col items-center justify-center h-12">
+                            <div class="text-lg leading-none mb-0.5 group-hover:scale-110 transition-transform">${badge.icon}</div>
+                            <div class="text-[6px] font-bold text-center text-slate-600 dark:text-slate-400 uppercase tracking-wider leading-none w-full truncate px-0.5">${badge.tier}</div>
+                            <div class="mt-0.5 h-0.5 w-6 rounded-full bg-gradient-to-r ${badge.gradient}"></div>
+                        </div>
+                    `;
+                }
+            });
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        // Show teaser modal
+        function showTeaserModal() {
+            const modal = document.getElementById('badge-modal');
+            const content = document.getElementById('badge-content');
+            const iconWrapper = document.getElementById('badge-icon-wrapper');
+            const icon = document.getElementById('badge-icon');
+            const title = document.getElementById('badge-title');
+            const message = document.getElementById('badge-message');
+            const iconBg = document.getElementById('badge-icon-bg');
+
+            icon.textContent = '🔮';
+            title.textContent = 'You\'re Very Close!';
+            message.textContent = 'You are very close to your surprise!! u gotta figure it out';
+
+            // Consistent visible centering
+            iconBg.className = 'inline-flex items-center justify-center w-24 h-24 rounded-full relative bg-gradient-to-br from-purple-400 to-pink-500 shadow-lg mx-auto';
+
+            modal.classList.remove('hidden');
+
+            content.style.transform = 'scale(0)';
+            iconWrapper.style.transform = 'scale(0)';
+
+            anime({
+                targets: content,
+                scale: [0, 1],
+                duration: 600,
+                easing: 'easeOutElastic(1, .6)',
+            });
+
+            anime({
+                targets: iconWrapper,
+                scale: [0, 1],
+                rotate: [0, 360],
+                duration: 800,
+                delay: 300,
+                easing: 'easeOutElastic(1, .8)',
+            });
+        }
+
+        // Replay badge animation
+        function replayBadge(badgeId) {
+            const badge = badges.find(b => b.id === badgeId);
+            if (badge) showBadgeModal(badge);
+        }
+
+        // ==================== END BADGE SYSTEM ====================
+
+
+        // Tab Switching Logic
+        let currentTab = 'topic';
+
+        function switchTab(tab) {
+            currentTab = tab;
+            const topicView = document.getElementById('modules-view');
+            const paperView = document.getElementById('papers-view');
+            const tabTopic = document.getElementById('tab-topic');
+            const tabPaper = document.getElementById('tab-paper');
+
+            if (tab === 'topic') {
+                topicView.classList.remove('hidden');
+                paperView.classList.add('hidden');
+
+                tabTopic.classList.add('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                tabTopic.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+
+                tabPaper.classList.remove('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                tabPaper.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+            } else {
+                topicView.classList.add('hidden');
+                paperView.classList.remove('hidden');
+
+                tabPaper.classList.add('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                tabPaper.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+
+                tabTopic.classList.remove('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                tabTopic.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+
+                renderPapers();
+            }
+        }
+
+        function getPapersData() {
+            const papers = {
+                '1A': { title: '1A : dec2024-jan2025_BRMK557', modules: {} },
+                '1B': { title: '1B : june2024-july2024_BRMK557', modules: {} },
+                '2A': { title: '2A : BRMK557_2022_MQP-1', modules: {} },
+                '2B': { title: '2B : BRMK557_2022_MQP-2', modules: {} }
+            };
+
+            // Init modules for each paper
+            Object.values(papers).forEach(p => {
+                fullModules.forEach(m => {
+                    p.modules[m.id] = { title: m.title, qs: [] };
+                });
+            });
+
+            fullModules.forEach(mod => {
+                mod.topics.forEach(topic => {
+                    topic.qs.forEach(q => {
+                        // ROBUST PARSING: Split by pipe OR any whitespace
+                        // "1A Q.1a" -> ["1A", "Q.1a"]
+                        // "1A | Q.1a" -> ["1A", "", "Q.1a"] (filter empty)
+
+                        const parts = q.p.split(/[\s|]+/).filter(Boolean);
+                        let pCode = parts[0] ? parts[0].trim() : '';
+
+                        // Sanity check: if pCode is 'Q' (bad split), swap
+                        if (pCode.startsWith('Q.') && parts.length > 1) {
+                            pCode = parts[1]; // Swap logic if inverted (unlikely but safe)
+                        }
+
+                        if (papers[pCode]) {
+                            papers[pCode].modules[mod.id].qs.push({
+                                ...q,
+                                topicName: topic.name,
+                                freq: topic.freq,
+                                qNum: parts[1] || ''
+                            });
+                        }
+                    });
+                });
+            });
+
+            // Sort questions within each module of each paper
+            Object.values(papers).forEach(p => {
+                Object.values(p.modules).forEach(m => {
+                    m.qs.sort((a, b) => {
+                        const getVal = (str) => {
+                            if (!str) return 9999;
+                            const match = str.match(/Q\.(\d+)([a-z]*)/i);
+                            if (!match) return 0;
+                            return parseInt(match[1]) * 10 + (match[2].charCodeAt(0) || 0);
+                        };
+                        return getVal(a.qNum) - getVal(b.qNum);
+                    });
+                });
+            });
+
+            return papers;
+        }
+
+        // EXAM SCORER LOGIC
+        function calculatePaperScores(papersData) {
+            const results = {}; // { '1A': { total: 85, modules: { m1: 20, m2: 15... } } }
+
+            Object.entries(papersData).forEach(([pCode, pData]) => {
+                let paperTotal = 0;
+                const modScores = {};
+
+                fullModules.forEach(mod => {
+                    const modData = pData.modules[mod.id];
+                    if (!modData) return;
+
+                    // Group by Main Question Number (Q.1, Q.2 etc)
+                    // "Q.1a" -> "1", "Q.10b" -> "10"
+                    const groups = {};
+
+                    modData.qs.forEach(q => {
+                        const qNumMatch = q.qNum ? q.qNum.match(/Q\.(\d+)/i) : null;
+                        const mainNum = qNumMatch ? qNumMatch[1] : 'Unknown';
+
+                        if (!groups[mainNum]) groups[mainNum] = 0;
+
+                        // Check if this specific variant is checked
+                        // We need the topic ID for this question
+                        const tid = getTopicId(mod.id, q.topicName);
+                        if (savedChecks[tid]) {
+                            groups[mainNum] += (q.m || 0);
+                        }
+                    });
+
+                    // "Best of 2" Rule: Max score among the groups in this module
+                    const groupScores = Object.values(groups);
+                    const bestScore = groupScores.length > 0 ? Math.max(...groupScores) : 0;
+
+                    modScores[mod.id] = bestScore;
+                    paperTotal += bestScore;
+                });
+
+                results[pCode] = { total: paperTotal, modules: modScores };
+            });
+
+            return results;
+        }
+
+        function renderPapers() {
+            const container = document.getElementById('papers-container');
+            container.innerHTML = '';
+
+            const papersData = getPapersData();
+            const scores = calculatePaperScores(papersData);
+
+            Object.entries(papersData).forEach(([pCode, pData]) => {
+                const scoreData = scores[pCode] || { total: 0, modules: {} };
+                const details = document.createElement('details');
+                details.open = true;
+                // Modern, soft card style with lighter borders
+                details.className = 'group bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden mb-6 transition-all duration-300';
+
+                let contentHtml = '';
+                let hasQs = false;
+
+                fullModules.forEach(mod => {
+                    const modData = pData.modules[mod.id];
+                    if (modData && modData.qs.length > 0) {
+                        hasQs = true;
+                        contentHtml += `
+                            <div class="px-6 py-6 border-b border-slate-100 dark:border-slate-800 last:border-0">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="h-6 w-1 rounded-full bg-indigo-500"></div>
+                                    <div class="flex justify-between w-full items-center">
+                                        <h4 class="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">${modData.title}</h4>
+                                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded">
+                                            Score: ${scoreData.modules[mod.id] || 0}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 gap-3">
+                        `;
+
+                        modData.qs.forEach(q => {
+                            const topicId = getTopicId(mod.id, q.topicName);
+                            const isChecked = savedChecks[topicId] ? 'checked' : '';
+                            const dimClass = savedChecks[topicId] ? 'opacity-70 grayscale' : ''; // Less opacity for clarity
+
+                            // Yellow Strike-through Logic (Papers View)
+                            const textClass = savedChecks[topicId] ? 'line-through decoration-yellow-500 decoration-2 text-slate-500 dark:text-slate-400' : '';
+
+                            // Restore cleanCode definition
+                            const cleanCode = q.qNum || q.p.replace(pCode, '').replace(/\|/g, '').trim();
+
+                            // Dynamic Card Style based on Checked State
+                            const cardStyle = savedChecks[topicId]
+                                ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800/50'
+                                : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700/50 hover:border-indigo-200 dark:hover:border-indigo-500/30';
+
+                            contentHtml += `
+                                <div class="group/item relative flex items-start gap-4 p-4 rounded-xl transition-all border ${cardStyle} ${dimClass}">
+                                    <div class="pt-1 shrink-0">
+                                         <label class="checkbox-wrapper relative flex items-center justify-center scale-90">
+                                            <input type="checkbox" onchange="toggleTopic('${topicId}')" ${isChecked}>
+                                            <span class="checkmark shadow-sm border-slate-300 dark:border-slate-600 data-[checked=true]:bg-emerald-500 data-[checked=true]:border-emerald-500 rounded-md"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-white dark:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 shadow-sm font-mono tracking-tight min-w-[3.5rem] justify-center">
+                                                ${cleanCode}
+                                            </span>
+                                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-indigo-50 dark:bg-indigo-900/20 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
+                                                ${q.m} Marks
+                                            </span>
+                                        </div>
+                                        <p class="text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors ${textClass}">
+                                            ${q.t}
+                                        </p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+
+                        contentHtml += `</div></div>`;
+                    }
+                });
+
+                details.innerHTML = `
+                    <summary class="flex justify-between items-center px-6 py-4 cursor-pointer bg-white dark:bg-[#1e293b] hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors select-none border-b border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-4">
+                             <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+                                <span class="font-black text-sm tracking-wide">${pCode}</span>
+                             </div>
+                             <div>
+                                 <h3 class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">${pData.title.split(':')[1]?.trim() || pData.title}</h3>
+                                 <div class="text-xs font-semibold text-slate-400 mt-0.5">${hasQs ? 'Questions Available' : 'No Questions'}</div>
+                             </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="hidden sm:block text-right">
+                                <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Exam Score</div>
+                                <div class="text-lg font-black text-indigo-600 dark:text-indigo-400">${scoreData.total}<span class="text-slate-300 text-sm">/100</span></div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-400 group-hover:text-indigo-500 transition-colors">
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300 group-open:rotate-180"></i>
+                            </div>
+                        </div>
+                    </summary>
+                    <div class="bg-white dark:bg-[#1e293b]">
+                        ${contentHtml || '<div class="p-8 text-center text-slate-400 text-sm">No questions found.</div>'}
+                    </div>
+                `;
+
+                container.appendChild(details);
+            });
+
+            lucide.createIcons();
+        }
+
+        // Migration: Convert old index-based keys to new name-based keys (Run once)
+        (function migrateStorage() {
+            const checks = JSON.parse(localStorage.getItem('bmrk557_topics') || '{}');
+            let hasLegacy = false;
+            const newChecks = {};
+
+            // Check if any keys are legacy style (topic_m1_0)
+            if (Object.keys(checks).some(k => k.match(/topic_m\d+_\d+$/))) {
+                fullModules.forEach(mod => {
+                    mod.topics.forEach((t, i) => {
+                        const oldId = `topic_${mod.id}_${i}`;
+                        if (checks[oldId]) {
+                            newChecks[getTopicId(mod.id, t.name)] = true;
+                            hasLegacy = true;
+                        }
+                    });
+                });
+            }
+
+            if (hasLegacy) {
+                console.log('Migrating legacy checkboxes to name-based IDs...');
+                localStorage.setItem('bmrk557_topics', JSON.stringify(newChecks));
+                Object.assign(savedChecks, newChecks); // Update current memory
+            }
+        })();
+
+        // New Report Rendering Logic (Fixed & Enhanced)
+        function renderReport(totalTopics, checkedTopics, fullModules, savedChecks) {
+            const container = document.getElementById('report-content');
+            if (!container) return;
+
+            // Calculate Global Stats - WEIGHTED BY MODULE
+            // Each module is worth 20%, divided by its topic count
+            let weightedProgress = 0;
+            fullModules.forEach(mod => {
+                const modTotalTopics = mod.topics.length;
+                let modCheckedTopics = 0;
+                mod.topics.forEach(t => {
+                    if (savedChecks[getTopicId(mod.id, t.name)]) {
+                        modCheckedTopics++;
+                    }
+                });
+                // Module contribution: (checked / total) * 20%
+                const modContribution = (modCheckedTopics / modTotalTopics) * 20;
+                weightedProgress += modContribution;
+            });
+            const overallPercent = Math.round(weightedProgress);
+
+            // Priority Breakdown Logic (Total vs Done)
+            const stats = {
+                '4x': { total: 0, done: 0 },
+                '3x': { total: 0, done: 0 },
+                '2x': { total: 0, done: 0 },
+                '1x': { total: 0, done: 0 }
+            };
+
+            fullModules.forEach(mod => {
+                mod.topics.forEach((t, i) => {
+                    // Use new ID logic
+                    const tid = getTopicId(mod.id, t.name);
+                    const isDone = savedChecks[tid];
+                    if (stats[t.freq]) {
+                        stats[t.freq].total++;
+                        if (isDone) stats[t.freq].done++;
+                    }
+                });
+            });
+
+            // Find max for scaling
+            const maxTotal = Math.max(...Object.values(stats).map(s => s.total)) || 1;
+
+            // START 2-COLUMN GRID LAYOUT
+            let html = `<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">`;
+
+            // ============= LEFT COLUMN: TOPIC WISE =============
+            html += `<div>`;
+
+            // Section Header - TOPIC WISE
+            html += `
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-1 rounded-full bg-gradient-to-b from-blue-500 to-indigo-600"></div>
+                    <h3 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">TOPIC WISE</h3>
+                </div>
+            `;
+
+            // 1. Overall Progress Card - IN LEFT COLUMN
+            html += `
+                <div class="bg-blue-600 dark:bg-blue-600 rounded-2xl p-6 text-white text-center shadow-lg shadow-blue-500/20 mb-6">
+                    <h3 class="text-lg font-medium opacity-90 mb-1">Overall Progress</h3>
+                    <div class="text-5xl font-black mb-3 text-white">${overallPercent}%</div>
+                    <div class="text-xs font-bold bg-white/20 inline-block px-3 py-1.5 rounded-full border border-white/20">
+                        ${checkedTopics} of ${totalTopics} Topics Completed
+                    </div>
+                </div>
+            `;
+
+            // Separator before Priority Breakdown
+            html += `
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs uppercase">
+                        <span class="bg-white dark:bg-[#0f172a] px-2 text-slate-400 font-bold tracking-widest">Priority Breakdown</span>
+                    </div>
+                </div>
+            `;
+
+            // 2. Frequency Visual (Progress Bars) - LEFT COLUMN
+            html += `
+                <div class="bg-slate-50 dark:bg-[#1e293b] rounded-2xl p-6 border border-slate-100 dark:border-slate-700/50 mb-6">
+                    <div class="flex items-end justify-between gap-3 h-56">
+                        ${Object.entries(stats).reverse().map(([key, data]) => {
+                const col = freqColors[key];
+                const heightPct = Math.max(20, (data.total / maxTotal) * 100);
+                const fillPct = data.total > 0 ? (data.done / data.total) * 100 : 0;
+                const completionPercent = Math.round(fillPct);
+
+                return `
+                                <div class="flex-1 flex flex-col items-center justify-end group h-full min-w-[60px]">
+                                    <!-- Top Label -->
+                                    <div class="mb-3 text-center">
+                                        <div class="text-xs font-black text-slate-900 dark:text-white">${data.done}</div>
+                                        <div class="text-[10px] text-slate-400">of ${data.total}</div>
+                                    </div>
+                                    
+                                    <!-- Bar Container with Rounded Corners -->
+                                    <div class="relative w-full rounded-2xl bg-slate-200 dark:bg-slate-700 overflow-hidden transition-all duration-500 shadow-inner" 
+                                         style="height: ${heightPct}%">
+                                         
+                                         <!-- Fill with Gradient -->
+                                         <div class="absolute bottom-0 left-0 w-full rounded-2xl transition-all duration-700 ease-out flex items-center justify-center"
+                                              style="height: ${fillPct}%; background: linear-gradient(180deg, rgba(${col.r},${col.g},${col.b},0.9) 0%, rgba(${col.r},${col.g},${col.b},1) 100%); box-shadow: 0 -2px 10px rgba(${col.r},${col.g},${col.b}, 0.3);">
+                                              ${fillPct > 15 ? `<span class="text-white font-black text-xs">${completionPercent}%</span>` : ''}
+                                         </div>
+                                    </div>
+                                    
+                                    <!-- Bottom Label -->
+                                    <div class="mt-3 px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-wider" 
+                                         style="background-color: rgba(${col.r},${col.g},${col.b},0.1); color: rgb(${col.r},${col.g},${col.b});">
+                                        ${key.replace('x', '')}X
+                                    </div>
+                                </div>
+                             `;
+            }).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Creative Separator + Module Details - IN LEFT COLUMN
+            html += `
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs uppercase">
+                        <span class="bg-white dark:bg-[#0f172a] px-2 text-slate-400 font-bold tracking-widest">Module Progress</span>
+                    </div>
+                </div>
+            `;
+
+            html += `<div class="space-y-3 mb-6">`;
+
+            fullModules.forEach((mod, idx) => {
+                let modTotal = mod.topics.length;
+                let modChecked = 0;
+                mod.topics.forEach((t) => {
+                    if (savedChecks[getTopicId(mod.id, t.name)]) modChecked++;
+                });
+                let modPercent = Math.round((modChecked / modTotal) * 100) || 0;
+                const barColor = ['bg-violet-500', 'bg-amber-500', 'bg-sky-500', 'bg-emerald-500', 'bg-pink-500'][idx % 5];
+
+                html += `
+                    <div class="bg-white dark:bg-[#1e293b] rounded-xl p-4 border border-slate-100 dark:border-slate-700/50 shadow-sm dark:shadow-none relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-bold text-slate-700 dark:text-slate-200 text-sm truncate pr-2">${mod.title}</div>
+                            <div class="text-xs font-bold text-slate-400">${modChecked}/${modTotal}</div>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-full overflow-hidden">
+                            <div class="h-full ${barColor} rounded-full" style="width: ${modPercent}%"></div>
+                        </div>
+                    </div>
+                 `;
+            });
+
+            html += `</div>`; // Close module details
+
+            // 3. PAPER WISE ANALYSIS (NEW!) - RIGHT COLUMN
+            html += `</div>`; // Close LEFT column
+
+            // ============= RIGHT COLUMN: PAPER WISE =============
+            html += `<div>`; // Start right column
+
+            // Section Header - PAPER WISE
+            html += `
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-1 rounded-full bg-gradient-to-b from-purple-500 to-indigo-600"></div>
+                    <h3 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">PAPER WISE</h3>
+                </div>
+            `;
+
+            const papersData = getPapersData();
+            const paperScores = calculatePaperScores(papersData);
+            const paperTotals = Object.values(paperScores).map(p => p.total);
+            const avgScore = paperTotals.length > 0 ? (paperTotals.reduce((a, b) => a + b, 0) / paperTotals.length).toFixed(1) : 0;
+
+            html += `
+                <div class="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl p-6 text-white text-center shadow-lg shadow-purple-500/20 mb-6">
+                    <h3 class="text-lg font-medium opacity-90 mb-1">Average Exam Score</h3>
+                    <div class="text-5xl font-black mb-3 text-white">${avgScore}<span class="text-2xl opacity-60">/100</span></div>
+                    <div class="text-xs font-bold bg-white/20 inline-block px-3 py-1.5 rounded-full border border-white/20">
+                        Across 4 Papers
+                    </div>
+                </div>
+
+            `;
+
+            // Separator before Paper Analysis
+            html += `
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs uppercase">
+                        <span class="bg-white dark:bg-[#0f172a] px-2 text-slate-400 font-bold tracking-widest">Paper Analysis</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+            `;
+
+            Object.entries(paperScores).forEach(([pCode, scoreData]) => {
+                const paperInfo = papersData[pCode];
+                html += `
+                    <div class="bg-white dark:bg-[#1e293b] rounded-xl p-4 border border-slate-100 dark:border-slate-700/50 shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-md">
+                                <span class="font-black text-xs">${pCode}</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-bold text-slate-700 dark:text-slate-200 text-sm">${paperInfo.title.split(':')[1]?.trim() || pCode}</div>
+                                <div class="text-lg font-black text-indigo-600 dark:text-indigo-400">${scoreData.total}<span class="text-slate-400 text-xs">/100</span></div>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                `;
+
+                fullModules.forEach(mod => {
+                    const modScore = scoreData.modules[mod.id] || 0;
+                    html += `
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="text-slate-500 dark:text-slate-400 truncate pr-2">${mod.title}</span>
+                            <span class="font-bold text-slate-700 dark:text-slate-300">${modScore}</span>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`; // Close paper analysis
+            html += `</div>`; // Close right column
+            html += `</div>`; // Close 2-column grid
+
+            container.innerHTML = html;
+        }
+
+        function render() {
+            const container = document.getElementById('modules-container');
+            container.innerHTML = '';
+
+            renderLegend(); // No-op
+
+            let totalTopics = 0;
+            let totalVariants = 0;
+            let checkedTopics = 0;
+
+            const freqVal = { '4x': 4, '3x': 3, '2x': 2, '1x': 1 };
+
+            fullModules.forEach((mod, idx) => {
+                const details = document.createElement('details');
+                details.open = true;
+                details.id = `module-${idx + 1}`;
+
+                // Dark Mode Classes Added
+                details.className = 'group bg-white dark:bg-[#1e293b] rounded-3xl border border-slate-100 dark:border-slate-800 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] dark:shadow-none overflow-hidden mb-8 scroll-mt-32 transition-all duration-300 hover:shadow-lg dark:hover:shadow-slate-900/50';
+
+                let tbody = '';
+
+                // SORTING LOGIC: Clone and Sort by Freq Desc
+                const sortedTopics = [...mod.topics].sort((a, b) => {
+                    return (freqVal[b.freq] || 0) - (freqVal[a.freq] || 0);
+                });
+
+                sortedTopics.forEach((t, i) => {
+                    totalTopics++;
+                    totalVariants += t.qs.length;
+
+                    // New Stable ID based on name
+                    const topicId = getTopicId(mod.id, t.name);
+                    const isChecked = savedChecks[topicId] ? 'checked' : '';
+                    const dimClass = savedChecks[topicId] ? 'opacity-50 grayscale' : '';
+                    if (savedChecks[topicId]) checkedTopics++;
+
+                    const variantStyle = getVariantStyle(t.freq);
+
+                    const variantsHtml = t.qs.map(q => `
+                        <li class="pl-0 text-slate-600 dark:text-slate-400 text-[14px] leading-relaxed mb-4 last:mb-0 border-b border-dashed border-slate-200/50 dark:border-slate-700/50 last:border-0 pb-4 last:pb-0">
+                            <div class="flex items-baseline gap-3">
+                                <span class="shrink-0 relative top-1">
+                                    <strong class="bg-white/80 dark:bg-slate-800 px-2.5 py-1.5 rounded-lg text-[11px] inline-block text-center font-bold border border-slate-200 dark:border-slate-700 tracking-wide shadow-sm min-w-[80px] text-slate-700 dark:text-slate-200 uppercase">${q.p.replace(' ', ' | ')}</strong>
+                                </span>
+                                <span class="grow font-medium text-slate-700 dark:text-slate-300">${q.t}</span>
+                            </div>
+                        </li>
+                    `).join('');
+
+                    // Marks Pills
+                    const uniqueMarks = [...new Set(t.qs.map(q => q.m))];
+                    const marksDisplay = uniqueMarks.map(m => `
+                         <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-bold text-xs">
+                            ${m}M
+                         </span>
+                    `).join('');
+
+                    tbody += `
+                        <tr class="border-b border-slate-50 dark:border-slate-800 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors ${dimClass} last:border-0 odd:bg-white dark:odd:bg-[#1e293b] even:bg-[#fafafa] dark:even:bg-[#0f172a]/40">
+                            <!-- Checkbox -->
+                            <td class="p-4 align-middle text-center w-[60px]">
+                                <label class="checkbox-wrapper relative flex items-center justify-center">
+                                    <input type="checkbox" onchange="toggleTopic('${topicId}')" ${isChecked}>
+                                    <span class="checkmark shadow-sm border-slate-300 dark:border-slate-600 data-[checked=true]:bg-blue-500 data-[checked=true]:border-blue-500"></span>
+                                </label>
+                            </td>
+
+                            <!-- # -->
+                            <td class="p-4 align-top text-slate-400 dark:text-slate-500 font-bold w-[50px] pt-8 text-center text-sm">
+                                ${String(i + 1).padStart(2, '0')}
+                            </td>
+
+                            <!-- Question (Topic + Variations) -->
+                            <td class="p-5 align-top pt-7 w-auto">
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-4 tracking-tight flex items-center gap-2">
+                                    ${t.name}
+                                </h3>
+                                <div class="rounded-2xl p-5" style="${variantStyle}">
+                                    <h4 class="text-[10px] font-bold uppercase mb-3 tracking-widest flex items-center gap-2 opacity-90" style="color: inherit">
+                                        <i data-lucide="git-branch" class="w-3 h-3"></i> Variants
+                                    </h4>
+                                    <ul class="list-none space-y-0">
+                                        ${variantsHtml}
+                                    </ul>
+                                </div>
+                            </td>
+
+                            <!-- Freq -->
+                            <td class="p-4 align-middle text-center w-[100px]">
+                                <span class="inline-flex items-center justify-center w-10 h-10 font-black rounded-xl text-sm border shadow-sm backdrop-blur-sm" style="${getBadgeStyle(t.freq)}">
+                                    ${t.freq}
+                                </span>
+                            </td>
+
+                            <!-- Marks -->
+                            <td class="p-4 align-middle text-center w-[100px]">
+                                <div class="flex flex-col gap-2 justify-center items-center">
+                                    ${marksDisplay}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                const topicCount = mod.topics.length;
+                const variantCount = mod.topics.reduce((acc, t) => acc + t.qs.length, 0);
+
+                // Stats Logic
+                let modCheckedTopics = 0;
+                let modCoveredVariants = 0;
+                mod.topics.forEach(t => {
+                    if (savedChecks[getTopicId(mod.id, t.name)]) {
+                        modCheckedTopics++;
+                        modCoveredVariants += t.qs.length;
+                    }
+                });
+
+                details.innerHTML = `
+                    <summary class="flex justify-between items-center px-8 py-5 cursor-pointer bg-white dark:bg-[#1e293b] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors select-none border-b border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-4">
+                             <div class="bg-blue-600 w-1.5 h-10 rounded-full shadow-lg shadow-blue-500/30"></div>
+                             <div>
+                                 <h3 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">${mod.title}</h3>
+                                 <div class="flex items-center gap-2 mt-1">
+                                    <span class="text-xs font-semibold text-slate-400 dark:text-slate-500">
+                                        <span class="text-slate-700 dark:text-slate-300 font-bold">${modCheckedTopics}</span>/${topicCount} Topics
+                                    </span>
+                                    <span class="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+                                    <span class="text-xs font-semibold text-slate-400 dark:text-slate-500">
+                                        <span class="text-slate-700 dark:text-slate-300 font-bold">${modCoveredVariants}</span>/${variantCount} Questions
+                                    </span>
+                                 </div>
+                             </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 text-slate-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all">
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform group-open:rotate-180"></i>
+                        </div>
+                    </summary>
+                    <div class="overflow-x-auto bg-white dark:bg-[#1e293b]">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 dark:bg-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 text-center">
+                                    <th class="p-4 w-[60px]">Status</th>
+                                    <th class="p-4 w-[50px]">#</th>
+                                    <th class="p-4 w-auto text-left pl-5">Question Details</th>
+                                    <th class="p-4 w-[100px]">Freq</th>
+                                    <th class="p-4 w-[100px]">Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody>${tbody}</tbody>
+                        </table>
+                    </div>
+                `;
+                container.appendChild(details);
+            });
+
+            // Hero Stats
+            const heroTotal = document.getElementById('hero-total-topics');
+            if (heroTotal) heroTotal.innerText = totalTopics;
+
+            // Calculate WEIGHTED progress for hero display (same as Overall Progress in Report)
+            let weightedHeroProgress = 0;
+            fullModules.forEach(mod => {
+                const modTotalTopics = mod.topics.length;
+                let modCheckedTopics = 0;
+                mod.topics.forEach(t => {
+                    if (savedChecks[getTopicId(mod.id, t.name)]) {
+                        modCheckedTopics++;
+                    }
+                });
+                weightedHeroProgress += (modCheckedTopics / modTotalTopics) * 20;
+            });
+
+            const progressText = document.getElementById('progress-text');
+            const heroProgressText = document.getElementById('hero-progress-text');
+            if (heroProgressText) heroProgressText.innerText = `${Math.round(weightedHeroProgress)}%`;
+
+            const percent = Math.round(weightedHeroProgress);
+            const heroDonutCircle = document.getElementById('hero-donut-circle');
+            if (heroDonutCircle) {
+                heroDonutCircle.setAttribute('stroke-dasharray', `${percent}, 100`);
+            }
+
+            // Build Deep Analytics Report
+            renderReport(totalTopics, checkedTopics, fullModules, savedChecks);
+
+            lucide.createIcons();
+        }
+
+        function toggleTopic(id, event) {
+            if (event) event.preventDefault();
+            const checkbox = document.querySelector(`input[onchange="toggleTopic('${id}')"]`);
+            if (checkbox.checked) {
+                savedChecks[id] = true;
+            } else {
+                delete savedChecks[id];
+            }
+            localStorage.setItem('bmrk557_topics', JSON.stringify(savedChecks));
+            render();
+            if (currentTab === 'paper') renderPapers(); /* Sync UI if in paper view */
+
+            // Re-render report to reflect changes immediately
+            const totalTopics = fullModules.reduce((acc, m) => acc + m.topics.length, 0);
+            const checkedTopics = Object.keys(savedChecks).length;
+            renderReport(totalTopics, checkedTopics, fullModules, savedChecks);
+
+            // Check for badge achievements!
+            console.log('[BADGE] Checking badges...', Object.keys(savedChecks).length, 'topics checked');
+            checkBadges();
+            return false;
+        }
+
+        // Slide-Over Toggle Logic
+        function toggleReport() {
+            const panel = document.getElementById('report-panel');
+            const backdrop = document.getElementById('report-backdrop');
+
+            if (panel.classList.contains('translate-x-full')) {
+                panel.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden', 'opacity-0');
+                document.body.style.overflow = 'hidden';
+            } else {
+                panel.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+                document.body.style.overflow = '';
+            }
+        }
+
+        render();
+
+        // Check badges immediately to clean up invalid ones
+        console.log('[BADGE] Initial badge check on page load');
+        checkBadges();
+
+        // Render showcase (will use corrected data)
+        renderBadgeShowcase();
+    </script>
+
+    <!-- ACHIEVEMENT BADGE MODAL -->
+    <div id="badge-modal" class="fixed inset-0 z-[100] hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+
+        <!-- Confetti Canvas -->
+        <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none"></canvas>
+
+        <!-- Modal Content -->
+        <div class="relative h-full flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-[#0f172a] rounded-3xl shadow-2xl max-w-md w-full p-8 text-center transform scale-0 transition-transform duration-500"
+                id="badge-content">
+                <!-- Badge Icon -->
+                <div class="mb-6 flex justify-center" id="badge-icon-wrapper">
+                    <div class="inline-flex items-center justify-center w-24 h-24 rounded-full relative"
+                        id="badge-icon-bg">
+                        <div class="text-6xl select-none" id="badge-icon">🏆</div>
+                    </div>
+                </div>
+
+                <!-- Badge Title -->
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-2" id="badge-title">Achievement
+                    Unlocked!</h2>
+
+                <!-- Badge Message -->
+                <p class="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-6"
+                    id="badge-message">
+                    Keep going, you're amazing! ✨
+                </p>
+
+                <!-- Close Button -->
+                <button onclick="closeBadgeModal()"
+                    class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:scale-105 transition-transform shadow-lg">
+                    Awesome! 🎉
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
