@@ -167,20 +167,23 @@
             </div>
 
             <!-- Title & Toggle (Right Side) -->
-            <div class="flex flex-col md:flex-row xl:flex-col items-end justify-center gap-4 shrink-0 px-2">
-                <div class="text-right">
-                    <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none">BMRK557
-                        <span class="text-slate-400 font-medium">-analysis</span>
-                    </h1>
-                    <span
-                        class="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase opacity-80">Dashboard</span>
-                </div>
+            <div class="flex flex-col items-end gap-2 shrink-0 px-2 min-w-[280px]">
+                <div class="flex items-center justify-end gap-4 w-full">
+                    <div class="text-right">
+                        <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
+                            BMRK557
+                            <span class="text-slate-400 font-medium">-analysis</span>
+                        </h1>
+                        <span
+                            class="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase opacity-80">Dashboard</span>
+                    </div>
 
-                <button onclick="toggleDarkMode()"
-                    class="w-12 h-12 rounded-2xl bg-white dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 flex items-center justify-center hover:bg-white/80 transition-all shadow-sm border border-slate-200 dark:border-slate-800 hover:scale-105 active:scale-95 duration-200">
-                    <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
-                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
-                </button>
+                    <button onclick="toggleDarkMode()"
+                        class="w-12 h-12 rounded-2xl bg-white dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 flex items-center justify-center hover:bg-white/80 transition-all shadow-sm border border-slate-200 dark:border-slate-800 hover:scale-105 active:scale-95 duration-200 shrink-0">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
+                    </button>
+                </div>
 
                 <!-- COMPACT BADGE SHOWCASE (Below Dark Mode) -->
                 <div id="badge-showcase-container" class="w-full">
@@ -678,8 +681,8 @@
                 id: 'module3',
                 tier: 'silver',
                 icon: '🥈',
-                title: '60 Marks',
-                getMessage: () => "60 MARKS ACHIEVED! Man, you've achieved 60 marks! Three modules down! Let's gooooo! Now let's try for 80+!",
+                title: 'module master - 3 modules done',
+                getMessage: () => "You have completed 3 modules completely !!💪 . u are going sooo good !!\nhum....may be i am proud of you!",
                 gradient: 'from-gray-400 to-gray-600',
                 check: () => {
                     let completedModules = 0;
@@ -865,8 +868,8 @@
             title.textContent = badge.title;
             message.textContent = badge.getMessage ? badge.getMessage() : badge.message;
 
-            // Ensure icon background is visible and centered
-            iconBg.className = `inline-flex items-center justify-center w-24 h-24 rounded-full relative bg-gradient-to-br ${badge.gradient} shadow-lg mx-auto`;
+            // Ensure icon background is visible and centered - Updated Classes
+            iconBg.className = `inline-flex items-center justify-center w-28 h-28 rounded-full relative bg-gradient-to-br ${badge.gradient} shadow-2xl ring-4 ring-white/30 dark:ring-white/10 mx-auto`;
 
             // Show modal
             modal.classList.remove('hidden');
@@ -898,15 +901,15 @@
                 easing: 'easeOutElastic(1, .8)',
             });
 
-            // Floating animation
+            // Floating animation (Updated target + Speed)
             anime({
-                targets: iconWrapper,
-                translateY: [-8, 8],
-                duration: 2000,
-                delay: 1600,
+                targets: iconBg,
+                translateY: [-10, 10],
+                duration: 3000,
+                delay: 1000,
                 loop: true,
                 direction: 'alternate',
-                easing: 'easeInOutSine'
+                easing: 'easeInOutQuad'
             });
 
             // Update badge showcase
@@ -954,12 +957,35 @@
 
             // STATE 1: No badges earned yet
             if (earnedCount === 0) {
+                // Check if user has 20+ marks on all papers
                 if (show20Teaser) {
+                    // Auto-Popup Logic (STRICT PERSISTENCE)
+                    const foreverTeaserShown = localStorage.getItem('bmrk557_teaser_shown_forever');
+
+                    if (!foreverTeaserShown) {
+                        console.log('[BADGE] Auto-showing teaser (First Time Ever)!');
+                        localStorage.setItem('bmrk557_teaser_shown_forever', 'true');
+                        setTimeout(() => showTeaserModal(), 1000);
+                    } else {
+                        // If already shown once, DO NOT SHOW TEASER BUTTON EITHER
+                        container.innerHTML = '';
+                        return;
+                    }
+
                     container.innerHTML = `
-                        <div onclick="showTeaserModal()" class="mt-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-3 cursor-pointer hover:scale-105 transition-all duration-300 shadow-md animate-pulse">
-                            <div class="text-white text-center">
-                                <div class="text-xl mb-0.5">🎁</div>
-                                <div class="text-xs font-bold">Surprise! Click me</div>
+                        <div onclick="showTeaserModal()" class="mt-4 mb-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-4 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-purple-500/30 relative overflow-hidden group">
+                           <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div> 
+                           <div class="flex items-center justify-between relative z-10">
+                                <div class="flex items-center gap-3">
+                                    <div class="text-2xl bg-white/20 rounded-lg p-2 backdrop-blur-sm">🎁</div>
+                                    <div class="text-left">
+                                        <div class="text-xs font-bold text-white/80 uppercase tracking-widest mb-0.5">Surprise Unlocked</div>
+                                        <div class="text-white font-black text-sm">Tap to reveal!</div>
+                                    </div>
+                                </div>
+                                <div class="bg-white text-indigo-600 text-[10px] font-black px-2 py-1 rounded-md shadow-sm">
+                                    OPEN
+                                </div>
                             </div>
                         </div>
                     `;
@@ -971,26 +997,30 @@
 
             // STATE 2: Show earned badges only (Compact Mode)
             let html = `
-                <div class="mt-2 mb-1">
-                    <div class="flex items-center justify-between">
-                        <h4 class="text-[10px] font-black text-slate-900 dark:text-white flex items-center gap-1">
-                            <span class="text-xs">🏆</span>
+                <div class="mt-4 mb-2">
+                    <div class="flex items-center justify-between mb-3 px-1">
+                        <h4 class="text-xs font-black text-slate-800 dark:text-white flex items-center gap-2">
+                            <span class="text-sm">🏆</span>
                             <span>Achievements</span>
                         </h4>
-                        <span class="text-[8px] font-bold text-slate-400">${earnedCount}/${badges.length}</span>
+                        <span class="text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 px-2 py-1 rounded-full border border-slate-200 dark:border-slate-700">${earnedCount} / ${badges.length}</span>
                     </div>
                 </div>
-                <div class="grid grid-cols-4 gap-1">
+                <div class="grid grid-cols-7 gap-1">
             `;
 
             badges.forEach(badge => {
                 if (earnedBadges.includes(badge.id)) {
                     html += `
-                        <div onclick="replayBadge('${badge.id}')" 
-                             class="bg-white dark:bg-[#1e293b] rounded-md p-1 border border-slate-200 dark:border-slate-700 hover:scale-105 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col items-center justify-center h-12">
-                            <div class="text-lg leading-none mb-0.5 group-hover:scale-110 transition-transform">${badge.icon}</div>
-                            <div class="text-[6px] font-bold text-center text-slate-600 dark:text-slate-400 uppercase tracking-wider leading-none w-full truncate px-0.5">${badge.tier}</div>
-                            <div class="mt-0.5 h-0.5 w-6 rounded-full bg-gradient-to-r ${badge.gradient}"></div>
+                        <div onclick="showBadgeDetails('${badge.id}')" 
+                             class="bg-white dark:bg-[#1e293b] rounded-lg p-1 border border-slate-100 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-500/50 hover:shadow-lg dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center aspect-square relative overflow-hidden">
+                             <!-- Hover Gradient -->
+                            <div class="absolute inset-0 bg-gradient-to-br ${badge.gradient} opacity-0 group-hover:opacity-5 transition-opacity"></div>
+                             
+                            <div class="text-xl mb-0.5 group-hover:scale-110 transition-transform filter drop-shadow-sm">${badge.icon}</div>
+                            <div class="w-full">
+                                <div class="h-0.5 w-6 mx-auto rounded-full bg-gradient-to-r ${badge.gradient} opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
                         </div>
                     `;
                 }
@@ -1014,32 +1044,104 @@
             title.textContent = 'You\'re Very Close!';
             message.textContent = 'You are very close to your surprise!! u gotta figure it out';
 
-            // Consistent visible centering
-            iconBg.className = 'inline-flex items-center justify-center w-24 h-24 rounded-full relative bg-gradient-to-br from-purple-400 to-pink-500 shadow-lg mx-auto';
+            // Consistent visible centering - Updated for new Modal UI
+            iconBg.className = 'inline-flex items-center justify-center w-28 h-28 rounded-full relative bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-2xl ring-4 ring-white/30 mx-auto';
+
+            // Text Gradient
+            title.innerHTML = `<span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">You're Very Close!</span>`;
+
+            // Styled Message
+            message.innerHTML = `<span class="text-slate-500 dark:text-slate-400 font-medium">You are very close to your surprise!!<br> <strong class="text-indigo-600 dark:text-indigo-400">u gotta figure it out...</strong></span>`;
 
             modal.classList.remove('hidden');
 
+            // ANIMATION SEQUENCE
             content.style.transform = 'scale(0)';
+            content.style.opacity = '0';
             iconWrapper.style.transform = 'scale(0)';
 
             anime({
                 targets: content,
-                scale: [0, 1],
+                scale: [0.8, 1],
+                opacity: [0, 1],
                 duration: 600,
-                easing: 'easeOutElastic(1, .6)',
+                easing: 'easeOutExpo',
             });
 
             anime({
                 targets: iconWrapper,
                 scale: [0, 1],
                 rotate: [0, 360],
-                duration: 800,
-                delay: 300,
+                duration: 1000,
+                delay: 200,
                 easing: 'easeOutElastic(1, .8)',
             });
         }
 
-        // Replay badge animation
+        // Show Badge Details (Slide-Over)
+        function showBadgeDetails(badgeId) {
+            const badge = badges.find(b => b.id === badgeId);
+            if (!badge) return;
+
+            const panel = document.getElementById('badge-details-panel');
+            const backdrop = document.getElementById('badge-details-backdrop');
+            const content = document.getElementById('badge-details-content');
+
+            // Populate content
+            content.innerHTML = `
+                <div class="flex flex-col items-center justify-center p-8 text-center">
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 bg-gradient-to-br ${badge.gradient} blur-3xl opacity-30 animate-pulse"></div>
+                        <div class="text-[6rem] relative z-10 filter drop-shadow-2xl animate-bounce-slow">${badge.icon}</div>
+                    </div>
+                    
+                    <div class="inline-block px-3 py-1 bg-white/10 rounded-full border border-white/20 text-[10px] font-bold text-white/70 uppercase tracking-widest mb-4 backdrop-blur-md">
+                        ${badge.tier} Tier
+                    </div>
+
+                    <h2 class="text-3xl font-black text-white mb-4 tracking-tight leading-tight">
+                        ${badge.title}
+                    </h2>
+
+                    <div class="w-16 h-1 bg-gradient-to-r ${badge.gradient} rounded-full mb-6"></div>
+
+                    <p class="text-indigo-100 text-lg font-medium leading-relaxed mb-8">
+                        ${badge.getMessage ? badge.getMessage() : badge.message}
+                    </p>
+
+                    <div class="w-full bg-white/5 rounded-2xl p-4 border border-white/10 backdrop-blur-sm mb-6">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-indigo-200 font-bold">Status</span>
+                            <span class="text-green-400 font-bold flex items-center gap-1">
+                                <i data-lucide="check-circle-2" class="w-3 h-3"></i> Unlocked
+                            </span>
+                        </div>
+                    </div>
+
+                    <button class="w-full py-4 bg-white text-indigo-900 font-black rounded-xl hover:bg-indigo-50 transition-colors shadow-xl shadow-white/5 flex items-center justify-center gap-2" onclick="closeBadgeDetails()">
+                        <i data-lucide="x" class="w-4 h-4"></i> Close Details
+                    </button>
+                </div>
+            `;
+
+            // Open Panel
+            panel.classList.remove('translate-x-full');
+            backdrop.classList.remove('hidden', 'opacity-0');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeBadgeDetails() {
+            const panel = document.getElementById('badge-details-panel');
+            const backdrop = document.getElementById('badge-details-backdrop');
+
+            panel.classList.add('translate-x-full');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => backdrop.classList.add('hidden'), 300);
+            document.body.style.overflow = '';
+        }
+
+        // Replay badge animation (Deprecated for click, kept for manual calls if needed)
         function replayBadge(badgeId) {
             const badge = badges.find(b => b.id === badgeId);
             if (badge) showBadgeModal(badge);
@@ -1186,6 +1288,9 @@
         }
 
         function renderPapers() {
+            // PERSISTENCE FIX: Capture open state
+            const openIds = Array.from(document.querySelectorAll('#papers-container details[open]')).map(d => d.id);
+
             const container = document.getElementById('papers-container');
             container.innerHTML = '';
 
@@ -1195,7 +1300,12 @@
             Object.entries(papersData).forEach(([pCode, pData]) => {
                 const scoreData = scores[pCode] || { total: 0, modules: {} };
                 const details = document.createElement('details');
-                details.open = true;
+                const paperId = `paper-${pCode}`; // Stable ID
+                details.id = paperId;
+
+                // Default closed, but respect persistence
+                details.open = openIds.includes(paperId);
+
                 // Modern, soft card style with lighter borders
                 details.className = 'group bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden mb-6 transition-all duration-300';
 
@@ -1567,6 +1677,9 @@
         }
 
         function render() {
+            // PERSISTENCE FIX: Capture open toggles BEFORE clearing DOM
+            const openIds = Array.from(document.querySelectorAll('details[open]')).map(d => d.id);
+
             const container = document.getElementById('modules-container');
             container.innerHTML = '';
 
@@ -1580,8 +1693,10 @@
 
             fullModules.forEach((mod, idx) => {
                 const details = document.createElement('details');
-                details.open = true;
-                details.id = `module-${idx + 1}`;
+                const modId = `module-${idx + 1}`;
+                details.id = modId;
+                // PERSISTENCE FIX: Restore open state if it was open before
+                details.open = openIds.includes(modId);
 
                 // Dark Mode Classes Added
                 details.className = 'group bg-white dark:bg-[#1e293b] rounded-3xl border border-slate-100 dark:border-slate-800 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] dark:shadow-none overflow-hidden mb-8 scroll-mt-32 transition-all duration-300 hover:shadow-lg dark:hover:shadow-slate-900/50';
@@ -1806,39 +1921,61 @@
         renderBadgeShowcase();
     </script>
 
-    <!-- ACHIEVEMENT BADGE MODAL -->
-    <div id="badge-modal" class="fixed inset-0 z-[100] hidden">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+    <!-- BADGE DETAILS SLIDE-OVER -->
+    <div id="badge-details-backdrop" onclick="closeBadgeDetails()"
+        class="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300">
+    </div>
+    <div id="badge-details-panel"
+        class="fixed inset-y-0 right-0 z-[101] w-full max-w-md bg-[#0f172a]/95 backdrop-blur-3xl transform translate-x-full transition-transform duration-300 shadow-2xl border-l border-white/10 flex flex-col">
+        <div id="badge-details-content" class="flex-1 overflow-y-auto">
+            <!-- Content Injected via JS -->
+        </div>
+    </div>
+
+    <!-- ACHIEVEMENT BADGE MODAL (Redesigned) -->
+    <div id="badge-modal" class="fixed inset-0 z-[100] hidden transition-opacity duration-300">
+        <!-- Backdrop with heavier blur -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xl transition-opacity duration-300"></div>
 
         <!-- Confetti Canvas -->
         <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none"></canvas>
 
         <!-- Modal Content -->
         <div class="relative h-full flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-[#0f172a] rounded-3xl shadow-2xl max-w-md w-full p-8 text-center transform scale-0 transition-transform duration-500"
+            <div class="relative bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl max-w-sm w-full p-8 text-center transform scale-0 border border-white/20 dark:border-white/10 ring-1 ring-black/5"
                 id="badge-content">
+
+                <!-- Decorative Glow -->
+                <div class="absolute inset-0 rounded-[2.5rem] overflow-hidden pointer-events-none">
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"></div>
+                </div>
+
                 <!-- Badge Icon -->
-                <div class="mb-6 flex justify-center" id="badge-icon-wrapper">
-                    <div class="inline-flex items-center justify-center w-24 h-24 rounded-full relative"
+                <div class="relative mb-8 flex justify-center" id="badge-icon-wrapper">
+                    <div class="inline-flex items-center justify-center w-28 h-28 rounded-full relative shadow-2xl ring-4 ring-white/30 dark:ring-white/10"
                         id="badge-icon-bg">
-                        <div class="text-6xl select-none" id="badge-icon">🏆</div>
+                        <div class="text-[5rem] select-none filter drop-shadow-lg" id="badge-icon">🏆</div>
                     </div>
                 </div>
 
                 <!-- Badge Title -->
-                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-2" id="badge-title">Achievement
-                    Unlocked!</h2>
+                <h2 class="relative text-3xl font-black text-slate-900 dark:text-white mb-3 tracking-tight"
+                    id="badge-title">
+                    Achievement Unlocked!
+                </h2>
 
                 <!-- Badge Message -->
-                <p class="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-6"
-                    id="badge-message">
-                    Keep going, you're amazing! ✨
-                </p>
+                <div class="relative min-h-[80px] flex items-center justify-center">
+                    <p class="text-base font-bold text-slate-600 dark:text-slate-300 leading-relaxed"
+                        id="badge-message">
+                        Keep going, you're amazing! ✨
+                    </p>
+                </div>
 
                 <!-- Close Button -->
                 <button onclick="closeBadgeModal()"
-                    class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:scale-105 transition-transform shadow-lg">
+                    class="relative mt-8 px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-indigo-500/30 w-full text-sm uppercase tracking-wider">
                     Awesome! 🎉
                 </button>
             </div>
